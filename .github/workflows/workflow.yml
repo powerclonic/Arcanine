@@ -18,7 +18,7 @@ jobs:
           node-version: 16.x
 
       - name: Transpilando a aplicação
-        run: bash -c "npm i -g typescript && cd ./bot/ && tsc && cp ./package.json ./dist/package.json"
+        run: bash -c "npm i -g typescript && cd ./bot/ && npm i && tsc && cp ./package.json ./dist/package.json"
 
   deploy:
     runs-on: ubuntu-latest
