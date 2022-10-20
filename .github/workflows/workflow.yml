@@ -18,12 +18,7 @@ jobs:
           node-version: 16.x
 
       - name: Transpilando a aplicação
-        run: >
-        bash -c "
-        npm i -g typescript &&
-        tsc &&
-        cp ./package.json ./dist/package.json
-        "
+        run: bash -c "npm i -g typescript && tsc && cp ./package.json ./dist/package.json"
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,10 +44,4 @@ jobs:
         run: npm i
       
       - name: Reiniciando o docker
-        run: > 
-        bash -c "
-        cd ~/dev/arcanine/ && 
-        docker compose down && 
-        docker compose up -d && 
-        echo 'Docker reiniciado'
-        "
+        run: bash -c "cd ~/dev/arcanine/ && docker compose down && docker compose up -d && echo 'Docker reiniciado'"
