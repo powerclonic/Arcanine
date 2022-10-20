@@ -1,0 +1,58 @@
+name: Arcanine CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório atual
+        uses: actions/checkout@v3
+
+      - name: Usando Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Transpilando a aplicação
+        run: >
+        bash -c "
+        npm i -g typescript &&
+        tsc &&
+        cp ./package.json ./dist/package.json
+        "
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Deploy usando SSH
+        uses: easingthemes/ssh-deploy@v2.2.11
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "./bot/dist/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+
+  docker:
+    runs-on: self-hosted
+    needs: deploy
+    steps:
+      steps:
+      - name: Instalando dependências
+        run: npm i
+      
+      - name: Reiniciando o docker
+        run: > 
+        bash -c "
+        cd ~/dev/arcanine/ && 
+        docker compose down && 
+        docker compose up -d && 
+        echo 'Docker reiniciado'
+        "
