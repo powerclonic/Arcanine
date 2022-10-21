@@ -17,10 +17,6 @@ jobs:
         with:
           node-version: 16.x
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Deploy usando SSH
         uses: easingthemes/ssh-deploy@v2.2.11
         env:
