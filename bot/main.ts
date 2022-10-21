@@ -8,5 +8,6 @@ bot.login(process.env.TOKEN);
 
 bot.once('ready', () => {
     console.log('ready');
+    console.log(bot.user?.username);
     bot.user?.setActivity('teste');
 });
