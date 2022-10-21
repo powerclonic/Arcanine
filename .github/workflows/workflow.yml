@@ -29,7 +29,7 @@ jobs:
 
   docker:
     runs-on: self-hosted
-    needs: deploy
+    needs: setup
     steps:
       - name: Reiniciando o docker
         run: bash -c "cd ~/dev/arcanine/ && docker compose down && docker compose up -d && echo 'Docker reiniciado'"
