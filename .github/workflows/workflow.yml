@@ -33,4 +33,4 @@ jobs:
     needs: setup
     steps:
       - name: Reiniciando o docker
-        run: bash -c "cd ~/dev/arcanine/ && docker compose down && docker compose up -d && echo 'Docker reiniciado'"
+        run: bash -c "cd ~/apps/arcanine/ && npm i && tsc && cd ~/dev/arcanine/ && docker compose down && docker compose up -d && echo 'Docker reiniciado'"
