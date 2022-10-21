@@ -32,8 +32,5 @@ jobs:
     runs-on: self-hosted
     needs: setup
     steps:
-      - name: Instalando dependências
-        run: npm i
-      
       - name: Reiniciando o docker
         run: bash -c "cd ~/dev/arcanine/ && docker compose down && docker compose up -d && echo 'Docker reiniciado'"
