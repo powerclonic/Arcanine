@@ -1,4 +1,4 @@
-name: Arcanine CI Workflow
+name: Arcanine Workflow
 
 on:
   push:
