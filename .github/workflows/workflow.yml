@@ -22,6 +22,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
           ARGS: "-rltgoDzvO"
+          SOURCE: "./"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
@@ -31,5 +32,8 @@ jobs:
     runs-on: self-hosted
     needs: setup
     steps:
+      - name: Instalando dependências
+        run: npm i
+      
       - name: Reiniciando o docker
         run: bash -c "cd ~/dev/arcanine/ && docker compose down && docker compose up -d && echo 'Docker reiniciado'"
