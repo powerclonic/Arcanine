@@ -21,5 +21,6 @@ bot.once('ready', () => {
 });
 
 bot.on('messageCreate', (msg: Message) => {
-    msg.reply((new Date).toDateString());
+    if (msg.author.bot) return
+    msg.reply(`${(new Date).getTime()}`);
 })
